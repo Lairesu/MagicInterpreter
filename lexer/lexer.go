@@ -1,6 +1,8 @@
 package lexer
 
-import "MagicInterpreter/token"
+import (
+	"MagicInterpreter/token"
+)
 
 // lexer represents the state of lexical analyzer
 // It's job is to read through the source code and create stream of tokens
