@@ -26,10 +26,20 @@ const (
 	// operators
 	ASSIGN = "="
 	PLUS = "+"
+	MINUS = "-"
+	BANG = "!"
+	ASTERISK = "*"
+	SLASH = "/"
+
+	LT = "<"
+	GT = ">"
+
+	EQ = "=="
+	NOT_EQ = "!="
 
 	// Delimiters
 	COMMA = ","
-	SEMICOLON  = ","
+	SEMICOLON  = ";"
 	
 	LPAREN = "("
 	RPAREN = ")"
@@ -39,6 +49,12 @@ const (
 	// keywords
 	FUNCTION = "FUNCTION"
 	LET = "LET"
+	TRUE = "TRUE"
+	FALSE = "FALSE"
+	IF = "IF"
+	ELSE = "ELSE"
+	RETURN = "RETURN"
+
 )
 
 // Token represents a single lexical token extracted from the source code
@@ -49,3 +65,23 @@ type Token struct {
 	Literal string
 }
 
+// maps reserved words to their TokenType.
+// Used to distinguish Language string value from the user defined identifiers
+var keywords = map[string]TokenType {
+	"fn" : FUNCTION,
+	"let" : LET,
+	"true" : TRUE,
+	"false" : FALSE,
+	"if" : IF,
+	"else" : ELSE,
+	"return" : RETURN,
+}
+
+// returns the TokenType for a given identifier
+// if the identifier is a keyword , returns the corresponding TokenType, else IDENT is return fro user-defined identifier
+func LookupIdent(ident string) TokenType {
+	if tok, ok := keywords[ident]; ok {
+		return  tok
+	}
+	return IDENT
+}
